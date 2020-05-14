@@ -63,33 +63,21 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
             case MCQ:
                 try {
                     holder.getClass().getMethod("bind",MultipleChoicesQuestion.class,int.class).invoke(holder,(MultipleChoicesQuestion)question,position);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
                 break;
             case MRC:
                 try {
                     holder.getClass().getMethod("bind", MultipleRightChoicesQuestion.class,int.class).invoke(holder,(MultipleRightChoicesQuestion)question,position);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
                 break;
             case TEXT:
                 try {
                     holder.getClass().getMethod("bind",TextQuestion.class,int.class).invoke(holder,(TextQuestion)question,position);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
                 break;
