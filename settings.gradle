@@ -1,0 +1,2 @@
+rootProject.name='Quizly'
+include ':app'
