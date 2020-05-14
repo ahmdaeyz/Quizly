@@ -1,4 +1,4 @@
-package dev.ahmdaeyz.quizly.ui.navigation;
+package dev.ahmdaeyz.quizly.navigation;
 
 public interface INavigate {
     public interface INavigateFromQuiz {

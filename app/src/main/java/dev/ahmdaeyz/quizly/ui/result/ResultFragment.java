@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import dev.ahmdaeyz.quizly.R;
 import dev.ahmdaeyz.quizly.databinding.FragmentResultBinding;
-import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
+import dev.ahmdaeyz.quizly.navigation.INavigate;
 
 import static dev.ahmdaeyz.quizly.ui.welcome.WelcomeFragment.USER_NAME;
 

@@ -18,14 +18,13 @@ import com.jakewharton.rxbinding3.viewpager2.RxViewPager2;
 
 import org.parceler.Parcels;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import dev.ahmdaeyz.quizly.databinding.FragmentQuizBinding;
 import dev.ahmdaeyz.quizly.model.Question;
 import dev.ahmdaeyz.quizly.data.QuestionsStore;
-import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
+import dev.ahmdaeyz.quizly.navigation.INavigate;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;

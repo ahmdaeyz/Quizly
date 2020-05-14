@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import dev.ahmdaeyz.quizly.R;
-import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
+import dev.ahmdaeyz.quizly.navigation.INavigate;
 import dev.ahmdaeyz.quizly.ui.quiz.QuizFragment;
 import dev.ahmdaeyz.quizly.ui.result.ResultFragment;
 import dev.ahmdaeyz.quizly.ui.welcome.WelcomeFragment;

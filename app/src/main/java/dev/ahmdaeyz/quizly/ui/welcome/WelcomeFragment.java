@@ -11,17 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.google.android.material.textfield.TextInputLayout;
-import com.jakewharton.rxbinding2.support.design.widget.RxTextInputLayout;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.mikhaellopez.rxanimation.RxAnimation;
 import com.mikhaellopez.rxanimation.RxAnimationExtensionKt;
 
-import dev.ahmdaeyz.quizly.R;
 import dev.ahmdaeyz.quizly.databinding.FragmentWelcomeBinding;
-import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
+import dev.ahmdaeyz.quizly.navigation.INavigate;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
