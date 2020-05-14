@@ -2,12 +2,12 @@ package dev.ahmdaeyz.quizly.ui.quiz;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxCompoundButton;
-import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import dev.ahmdaeyz.quizly.R;
 import dev.ahmdaeyz.quizly.common.reactiveextenstions.RxCustomCheckbox;
 import dev.ahmdaeyz.quizly.databinding.McqViewPagerItemBinding;
 import dev.ahmdaeyz.quizly.databinding.MrcViewPagerItemBinding;
@@ -62,21 +61,21 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
         switch (question.getType()){
             case MCQ:
                 try {
-                    holder.getClass().getMethod("bind",MultipleChoicesQuestion.class,int.class).invoke(holder,(MultipleChoicesQuestion)question,position);
+                    holder.getClass().getMethod("bind", MultipleChoicesQuestion.class, int.class).invoke(holder, question, position);
                 } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
                 break;
             case MRC:
                 try {
-                    holder.getClass().getMethod("bind", MultipleRightChoicesQuestion.class,int.class).invoke(holder,(MultipleRightChoicesQuestion)question,position);
+                    holder.getClass().getMethod("bind", MultipleRightChoicesQuestion.class, int.class).invoke(holder, question, position);
                 } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
                 break;
             case TEXT:
                 try {
-                    holder.getClass().getMethod("bind",TextQuestion.class,int.class).invoke(holder,(TextQuestion)question,position);
+                    holder.getClass().getMethod("bind", TextQuestion.class, int.class).invoke(holder, question, position);
                 } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
@@ -153,6 +152,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                                 }
                             })
             );
+
             disposables.add(
                     RxCompoundButton.checkedChanges(binding.secondMcqChoice.answerRadioButton)
                             .subscribe(new Consumer<Boolean>() {
@@ -167,6 +167,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                                 }
                             })
             );
+
             disposables.add(
                     RxCompoundButton.checkedChanges(binding.thirdMcqChoice.answerRadioButton)
                             .subscribe(new Consumer<Boolean>() {
@@ -194,6 +195,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                             questions.onNext(questions.getValue());
                         }
                     }));
+
             disposables.add(RxView.clicks(binding.secondMcqChoice.getRoot())
                     .subscribe(new Consumer<Object>() {
                         @Override
@@ -205,6 +207,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                             questions.onNext(questions.getValue());
                         }
                     }));
+
             disposables.add(RxView.clicks(binding.thirdMcqChoice.getRoot())
                     .subscribe(new Consumer<Object>() {
                         @Override
@@ -229,10 +232,12 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
             this.binding = binding;
             this.questions = questions;
         }
+
         public static MRCViewHolder from(ViewGroup parent, BehaviorSubject<List<Question>> questions) {
             MrcViewPagerItemBinding binding = MrcViewPagerItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
             return new MRCViewHolder(binding,questions);
         }
+
         public void bind(MultipleRightChoicesQuestion question, int position) {
             binding.questionText.setText(question.getText());
             binding.firstChoice.answerText.setText(question.getAnswers().get(0));
@@ -280,6 +285,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
 
                         }
                     }));
+
             disposables.add(RxCustomCheckbox.checkedChanges(binding.secondChoice.answerCheckBox)
                     .skipInitialValue()
                     .subscribe(new Consumer<Boolean>() {
@@ -300,6 +306,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                             }
                         }
                     }));
+
             disposables.add(RxCustomCheckbox.checkedChanges(binding.thirdChoice.answerCheckBox)
                     .skipInitialValue()
                     .subscribe(new Consumer<Boolean>() {
@@ -345,6 +352,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
             if (!questions.getValue().get(position).getUserAnswer().equals("")){
                 binding.userAnswer.answerText.setText(questions.getValue().get(position).getUserAnswer());
             }
+
             disposables.add(
                     RxTextView.textChanges(binding.userAnswer.answerText)
                             .skipInitialValue()
