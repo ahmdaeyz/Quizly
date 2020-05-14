@@ -14,15 +14,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.jakewharton.rxbinding2.support.design.widget.RxTextInputLayout;
+import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.mikhaellopez.rxanimation.RxAnimation;
+import com.mikhaellopez.rxanimation.RxAnimationExtensionKt;
 
 import dev.ahmdaeyz.quizly.R;
+import dev.ahmdaeyz.quizly.databinding.FragmentWelcomeBinding;
 import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 public class WelcomeFragment extends Fragment {
 
     public static final String USER_NAME = "userName";
+    private FragmentWelcomeBinding binding;
     private String userName;
     private INavigate.INavigateFromWelcome navigateFromWelcome;
+    private CompositeDisposable disposables = new CompositeDisposable();
     public WelcomeFragment() {
         // Required empty public constructor
     }
@@ -41,19 +51,38 @@ public class WelcomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View fragmentView = inflater.inflate(R.layout.fragment_welcome, container, false);
-        Button goToQuiz = fragmentView.findViewById(R.id.go_to_quiz_button);
-        goToQuiz.setOnClickListener(new View.OnClickListener() {
+        binding = FragmentWelcomeBinding.inflate(inflater,container,false);
+        disposables.add(RxTextView.textChanges(binding.nameEditTextField)
+                .filter((charSequence -> !charSequence.toString().equals("")))
+                .subscribe(new Consumer<CharSequence>() {
+                    @Override
+                    public void accept(CharSequence charSequence) throws Exception {
+                        userName = charSequence.toString();
+                    }
+                }));
+        binding.goToQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputLayout userText = fragmentView.findViewById(R.id.name_text_field);
-                final String username = userText.getEditText().getText().toString();
-                userName = username;
-                navigateFromWelcome.toQuiz(userName);
-                saveNameToSharedPreferences();
+                if (userName != null){
+                    navigateFromWelcome.toQuiz(userName);
+                    saveNameToSharedPreferences();
+                }else{
+                    disposables.add(RxAnimationExtensionKt
+                            .shake(RxAnimation.INSTANCE
+                                    .from(binding.nameEditTextField)
+                                    ,100,5f,10f)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<View>() {
+                                @Override
+                                public void accept(View view) throws Exception {
+                                    binding.nameTextField.setError("Name can't be empty!");
+                                }
+                            }));
+
+                }
             }
         });
-        return fragmentView;
+        return binding.getRoot();
         }
 
     private void saveNameToSharedPreferences() {
@@ -61,5 +90,11 @@ public class WelcomeFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit()
                 .putString(USER_NAME,userName);
         editor.apply();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        disposables.clear();
     }
 }
