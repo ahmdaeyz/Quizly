@@ -79,8 +79,6 @@ public class QuizFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             userName = getArguments().getString(ARG_USERNAME);
-        }else {
-            Log.i("QuizFragment","Null yaba");
         }
         if (savedInstanceState!=null){
             questionsList = Parcels.unwrap(savedInstanceState.getParcelable(QUESTIONS));
@@ -128,7 +126,6 @@ public class QuizFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState!=null){
             int currentIndex = savedInstanceState.getInt(CURRENT_POSITION);
-            Log.d("CurrentIndex",currentIndex+"");
             binding.questionsPager.setCurrentItem(currentIndex,true);
         }
         binding.questionsPager.setAdapter(questionAdapter);
@@ -143,14 +140,11 @@ public class QuizFragment extends Fragment {
                             public void accept(PageScrollEvent pageScrollEvent) throws Exception {
                                 int currentPosition = pageScrollEvent.getPosition();
                                 position.onNext(currentPosition);
-                                Log.d("CurrentPosition", currentPosition + "");
                                 if (currentPosition == questionsList.size()-1){
                                     binding.submitButton.setVisibility(View.VISIBLE);
-                                    Log.d("Should","be visible");
                                 }
                                 else{
                                     binding.submitButton.setVisibility(View.GONE);
-                                    Log.d("Should","be gone");
                                 }
                             }
                         })
