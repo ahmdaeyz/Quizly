@@ -352,7 +352,7 @@ public class QuestionsViewPagerAdapter extends RecyclerView.Adapter<RecyclerView
                             .subscribe(new Consumer<CharSequence>() {
                                 @Override
                                 public void accept(CharSequence charSequence) throws Exception {
-                                    questions.getValue().get(position).setUserAnswer(charSequence.toString());
+                                    questions.getValue().get(position).setUserAnswer(charSequence.toString().trim());
                                     questions.onNext(questions.getValue());
                                 }
                             }));
