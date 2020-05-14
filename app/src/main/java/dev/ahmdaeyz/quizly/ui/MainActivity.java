@@ -9,10 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import java.util.Objects;
-
 import dev.ahmdaeyz.quizly.R;
-import dev.ahmdaeyz.quizly.data.QuestionsStore;
 import dev.ahmdaeyz.quizly.ui.navigation.INavigate;
 import dev.ahmdaeyz.quizly.ui.quiz.QuizFragment;
 import dev.ahmdaeyz.quizly.ui.result.ResultFragment;
@@ -23,7 +20,6 @@ import static dev.ahmdaeyz.quizly.ui.welcome.WelcomeFragment.USER_NAME;
 public class MainActivity extends AppCompatActivity implements INavigate.INavigateFromQuiz,INavigate.INavigateFromResult,INavigate.INavigateFromWelcome {
     public static final String IS_IN_QUIZ = "isInQuiz";
     FragmentManager fragmentManager =  getSupportFragmentManager();
-    QuestionsStore questionsStore;
     private WelcomeFragment welcomeFragment;
     private QuizFragment quizFragment;
     @Override
